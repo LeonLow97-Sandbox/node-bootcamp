@@ -1,5 +1,9 @@
 # NodeJS Basics
 
+- [Full Node.js Reference](https://nodejs.org/dist/latest/docs/api/)
+- [Node.js Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
+- [Blocking and Non-Blocking Code](https://nodejs.org/en/docs/guides/dont-block-the-event-loop/)
+
 ## How the Web Works?
 
 - Receives Request from the client and sends a Response to the client.
