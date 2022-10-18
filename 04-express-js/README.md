@@ -57,3 +57,86 @@ app.use("/", (req, res, next) => {
   res.send("<h1>Hello From Express!</h1>");
 });
 ```
+
+## Parsing Incoming Requests
+
+- `npm install --save body-parser`: for production
+  - `const bodyParser = require("body-parser")`
+  - `app.use(bodyParser.urlencoded({extended: false}))`
+    - placed in a middleware
+  - can read `req.body`
+
+## Express Router
+
+- Creating routes in other folders and importing them in `app.js`
+
+- In `admin.js `
+- Import `express` and `express.Router()`
+
+```js
+const express = require("express");
+
+const router = express.Router();
+
+router.get("/add-product", (req, res, next) => {
+  // console.log("In /add-product middleware");
+  res.send(
+    '<form action="/product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>'
+  );
+});
+
+router.post("/product", (req, res, next) => {
+  console.log(req.body);
+  res.redirect("/");
+});
+
+module.exports = router;
+```
+
+- In `app.js`
+
+```js
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
+
+app.use(adminRoutes);
+app.use(shopRoutes);
+```
+
+## router.use() vs router.get()
+
+- If use router.use("/") vs router.get("/"),
+  - router.use("/") captures all routes with a slash after
+    - e.g., "/hello", "/", "/add-user"
+  - router.get("/") gets the specific route "/"
+    - "/hello" will not work
+
+## Handle 404 Error Page
+
+- Chaining a `res.send()` with status code **404** for page not found.
+- Chaining is allowed and `.send()` just has to be at the _end_. E.g., `res.status(404).send(...)`
+
+```js
+// 404 error page
+app.use((req, res, next) => {
+  res.status(404).send("<h1>Page not found!</h1>");
+});
+```
+
+## Filtering Paths
+
+- In `app.js`, `/admin` will be added to the front of all the routes in `adminRoutes`
+  ```js
+  app.use("/admin", adminRoutes);
+  ```
+- In `admin.js`, this directs to `/admin/add-product`
+  ```js
+  router.get("/add-product", (req, res, next) => {
+    // console.log("In /add-product middleware");
+    res.send(
+      '<form action="/admin/add-product" method="POST"><input type="text" name="title"><button type="submit">Add Product</button></form>'
+    );
+  });
+  ```
+
+

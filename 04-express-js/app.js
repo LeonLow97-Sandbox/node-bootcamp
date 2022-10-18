@@ -1,21 +1,25 @@
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 
-app.use("/", (req, res, next) => {
-  console.log("This always runs!");
-  next(); // Allows the request to continue to the next middleware in line.
-});
+const adminRoutes = require("./routes/admin");
+const shopRoutes = require("./routes/shop");
 
-app.use("/add-product", (req, res, next) => {
-  console.log("In another middleware");
-  res.send("<h1>Add Product Page</h1>");
-  // next() // don't want to add next() here because it will send another response (error multiple headers)
-});
+// Parses Request Body (use this middleware)
+app.use(bodyParser.urlencoded({ extended: false })); // will call next() in the end
 
-app.use("/", (req, res, next) => {
-  console.log("In another middleware");
-  res.send("<h1>Hello From Express!</h1>");
+app.use("/admin", adminRoutes);
+app.use(shopRoutes);
+
+// 404 error page
+app.use((req, res, next) => {
+  res.status(404).send("<h1>Page not found!</h1>");
 });
 
 app.listen(3000);
+
+// app.use("/", (req, res, next) => {
+//   console.log("This always runs!");
+//   next(); // Allows the request to continue to the next middleware in line.
+// });
