@@ -139,4 +139,39 @@ app.use((req, res, next) => {
   });
   ```
 
+## Serving HTML Pages
+
+- Create HTML pages in a `views` folder.
+- import path module `const path = require("path")`
+- use `res.sendFile(path.join(...))` to send a html file back
+  ```js
+  router.get("/add-product", (req, res, next) => {
+    // use "../" because this route is in "admin.js"
+    // need to path into "add-product.html"
+    res.sendFile(path.join(__dirname, "../", "views", "add-product.html"));
+  });
+  ```
+
+## Absolute path to main module (`app.js`)
+
+- An easier way
+- Create `path.js` which points to main module `app.js`
+
+  ```js
+  const path = require("path");
+
+  module.exports = path.dirname(process.mainModule.filename);
+  ```
+
+- In `admin.js` (which is a route file),
+
+  ```js
+  // get path which points to app.js
+  const rootDir = require("../util/path");
+
+  router.get("/add-product", (req, res, next) => {
+    // simplified and removed __dirname and "../"
+    res.sendFile(path.join(rootDir, "views", "add-product.html"));
+  });
+  ```
 
