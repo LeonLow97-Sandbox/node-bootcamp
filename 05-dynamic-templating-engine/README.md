@@ -28,3 +28,47 @@
     <p>{{name}}</p>
     ```
     - Use normal HTML and custom template language.
+- `npm install --save ejs pug express-handlebars`
+
+## `.pug`
+
+- [Official Pug Docs](https://pugjs.org/api/getting-started.html)
+- To render template files, set in `app.js` in the default app:
+  - `views`: the directory where the template files are located. E.g., `app.set("views", "./views")`
+    - This defaults to the `views` directory in the application root directory.
+  - `view engine`: the template engine to use.
+    - For example, to use the Pug template engine: `app.set("view engine", "pug")`
+- To create a route in `shop.js` to render the `shop.pug` file.
+
+```js
+router.get("/", (req, res, next) => {
+  // render() method uses the default templating engine defined in app.js
+  // already defined in app.js, so this will access views folder and look for .pug file
+  res.render("shop");
+});
+```
+
+- Passing data into pug using `shop.js`
+
+```js
+router.get("/", (req, res, next) => {
+  // render() method uses the default templating engine defined in app.js
+  // already defined in app.js, so this will access views folder and look for .pug file
+  const products = adminData.products;
+  // pass to shop.pug template with an object
+  res.render("shop", { prods: products, docTitle: "Shop" });
+});
+```
+
+- Receiving data in `shop.pug`
+
+```js
+if prods.length > 0
+    ...
+    // looping over prods
+    each product in prods
+else
+    ...
+```
+
+
