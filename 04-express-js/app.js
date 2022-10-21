@@ -10,6 +10,8 @@ const shopRoutes = require("./routes/shop");
 
 // Parses Request Body (use this middleware)
 app.use(bodyParser.urlencoded({ extended: false })); // will call next() in the end
+// Serving files statically : not handled by express middleware or router but for file system
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
