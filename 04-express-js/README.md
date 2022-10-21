@@ -178,6 +178,7 @@ app.use((req, res, next) => {
 ## Serving Files Statically (`.css`)
 
 - Serving Files Statically means not handled by express middleware or router but for file system
+- If a _request_ is directly made for a file (e.g., a .css file is requested), you can enable static serving for such files via express.static().
 - In `app.js`, use a middleware with `express.static()`
 
 ```js
@@ -189,5 +190,4 @@ app.use(express.static(path.join(__dirname, "public")));
 ```html
 <link rel="stylesheet" href="/css/main.css" />
 ```
-
 
