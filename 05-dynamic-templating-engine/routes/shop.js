@@ -12,7 +12,14 @@ router.get("/", (req, res, next) => {
   // already defined in app.js, so this will access views folder and look for .pug file
   const products = adminData.products;
   // pass to shop.pug template with an object
-  res.render("shop", { prods: products, pageTitle: "Shop", path: "/" });
+  res.render("shop", {
+    prods: products,
+    pageTitle: "Shop",
+    path: "/",
+    hasProducts: products.length > 0,
+    activeShop: true, 
+    productCSS: true
+  });
 });
 
 module.exports = router;

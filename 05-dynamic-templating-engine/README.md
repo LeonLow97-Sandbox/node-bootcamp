@@ -71,4 +71,17 @@ else
     ...
 ```
 
+## Handlebars templating engine
 
+- cannot output logic into the template.
+- can only use single outputs like boolean or values in the templating engine of handlebars unlike pug (can put if else logic in pug)
+- use `{{{}}}` 3 brackets for a placeholder in `main-layout.hbs`.
+- use `{{}}` 2 brackets to handle logic,
+
+  - have to pass in this boolean value from node.js
+
+  ```js
+  {{if formsCSS}}
+
+  {{/if}}
+  ```
