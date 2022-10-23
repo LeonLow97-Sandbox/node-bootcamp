@@ -75,6 +75,27 @@ else
 
 - cannot output logic into the template.
 - can only use single outputs like boolean or values in the templating engine of handlebars unlike pug (can put if else logic in pug)
+
+- Setting up `.hbs` templating engine
+
+  ```js
+  const expressHbs = require("express-handlebars");
+
+  const app = express();
+
+  app.set("view engine", "pug");
+  app.engine(
+    "hbs",
+    expressHbs.engine({
+      layoutsDir: "views/layouts/",
+      defaultLayout: "main-layout",
+      extname: "hbs",
+    })
+  ); // hbs templating engine
+  ```
+
+````
+
 - use `{{{}}}` 3 brackets for a placeholder in `main-layout.hbs`.
 - use `{{}}` 2 brackets to handle logic,
 
@@ -84,4 +105,34 @@ else
   {{if formsCSS}}
 
   {{/if}}
+````
+
+## EJS Templating Engine
+
+- To input variables from node.js:
+
+  ```js
+    <%= pageTitle %>
   ```
+
+- Similar to JavaScript syntax:
+
+  ```js
+    <% if (prods.length> 0) { %>
+    ...
+    <% } else { %>
+      <h1>No Products Found!</h1>
+    <% } %>
+  ```
+
+- Creating Partials (importing a layout), this way of importing can also be done for .hbs and .pug
+
+  ```js
+    <%- include('includes/head.ejs') %>
+  ```
+
+- Difference between using `<%= %>` and `<%- %>`:
+  - `<%= %>` does not convert HTML code and just returns text. Prevents XSS attacks.
+  - `<%- %>` converts HTML code to the browser.
+
+
