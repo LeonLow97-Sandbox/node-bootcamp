@@ -29,6 +29,7 @@
     ```
     - Use normal HTML and custom template language.
 - `npm install --save ejs pug express-handlebars`
+- For POST routes, `input` should have a `name` attribute to extract the key-value pairs in `req.body`
 
 ## `.pug`
 
@@ -134,5 +135,3 @@ else
 - Difference between using `<%= %>` and `<%- %>`:
   - `<%= %>` does not convert HTML code and just returns text. Prevents XSS attacks.
   - `<%- %>` converts HTML code to the browser.
-
-
