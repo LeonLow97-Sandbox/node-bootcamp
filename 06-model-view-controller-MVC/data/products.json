@@ -1,1 +1,8 @@
-[{"title":"d"},{"title":"Balenciaga"},{"title":"ddd"}]
+[
+    {
+        "title": "Financial Times Book",
+        "imageUrl": "https://media-exp1.licdn.com/dms/image/C560BAQHkYotU-D9kCg/company-logo_200_200/0/1519855918985?e=1674691200&v=beta&t=UknSbifDi3PibRLOn6-xWVodO7pTGtg-pX6TLIDgCgU",
+        "description": "A cool book\r\n",
+        "price": "19"
+    }
+]

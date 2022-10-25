@@ -12,7 +12,7 @@ const getProductsFromFile = (cb) => {
   // Since JavaScript runs asynchronously, it has not ran the callback yet.
   fs.readFile(p, (err, fileContent) => {
     if (err) {
-      return cb([]);
+      cb([]);
     } else {
       cb(JSON.parse(fileContent));
     }
@@ -20,8 +20,11 @@ const getProductsFromFile = (cb) => {
 };
 
 module.exports = class Product {
-  constructor(title) {
+  constructor(title, imageUrl, description, price) {
     this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
   }
 
   // 'this' refers to the object created based on the Class
