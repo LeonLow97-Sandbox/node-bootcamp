@@ -47,8 +47,47 @@
 | Horizontal Scaling is difficult / impossible <br> Vertical scaling is possible |   Both horizontal and vertical scaling is possible   |
 |    Limitations for lots of (thousands) read <br> & write queries per second    |  Great performance for mass read & write requests.   |
 
+-----
+
 ## MySQL
 
 - `const mysql = require("mysql2")`
 - `mysql.createPool` allows us to run multiple connections unlike `mysql.createConnection`.
   - Can run multiple queries simultaneously because each query requires a connection.
+
+-----
+
+### `mysql.createConnection`
+
+- When you create a connection with mysql.createConnection, you only have one connection and it lasts until you close it OR connection closed by MySQL.
+- A single connection is blocking. 
+- While executing one query, it cannot execute others. hence, your application will not perform good.
+
+### `mysql.createPool`
+
+- mysql.createPool is a place where connections get stored.
+- When you request a connection from a pool,you will receive a connection that is not currently being used, or a new connection.
+- If you're already at the connection limit, it will wait until a connection is available before it continues.
+- A pool while one connection is busy running a query, others can be used to execute subsequent queries. 
+- Hence, your application will perform good.
+
+```js
+const mysql = require("mysql2");
+
+const pool = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  database: "node-complete",
+  password: "password",
+});
+
+module.exports = pool.promise();
+```
+
+- Use `pool.promise()` to return a promise when calling `mysql.createPool`.
+
+-----
+
+# Sequelize
+
+
